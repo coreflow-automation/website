@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { X } from 'lucide-react';
+import { X, Play } from 'lucide-react';
 import AnimatedSection from '../components/AnimatedSection';
 import FloatingCard from '../components/FloatingCard';
 
@@ -10,12 +10,54 @@ interface DemoSystem {
   systemBuilt: string;
   result: string;
   details: string[];
+  videoUrl?: string;
+  featured?: boolean;
 }
 
 function ExampleAutomationsPage() {
   const [selectedDemo, setSelectedDemo] = useState<DemoSystem | null>(null);
 
   const demoSystems: DemoSystem[] = [
+    {
+      id: 'appointment-voice-caller',
+      title: 'Appointment Management AI Voice Caller System',
+      problem:
+        'Businesses spend significant time handling phone calls for appointment booking, updates, and cancellations, leading to missed calls, errors, and operational inefficiency.',
+      systemBuilt:
+        'An AI-powered voice calling system that manages the entire appointment lifecycle, integrates with calendars, and escalates calls when needed.',
+      result:
+        'Automated 24/7 phone handling, elimination of double bookings, and improved customer experience with structured data capture and system integration.',
+      details: [
+        'Automated inbound and outbound appointment calls',
+        'Real-time calendar integration',
+        'Natural conversation handling in Greek',
+        'Automatic escalation for complex scenarios',
+        'Call recording and transcription',
+        'CRM integration and data capture',
+      ],
+      videoUrl: 'https://youtu.be/ecs54Z86XDU',
+      featured: true,
+    },
+    {
+      id: 'appointment-chat-agent',
+      title: 'Appointment Management & Customer Support AI Chat-Agent System',
+      problem:
+        'Law firms spend significant time handling messages for appointment booking, updates, and cancellations, leading to errors and operational inefficiency.',
+      systemBuilt:
+        'An AI-powered chat-agent system that manages appointments, answers inquiries via a Knowledge Base, and automatically updates the firm\'s CRM with extracted case details.',
+      result:
+        'Reduced manual messaging, 24/7 appointment management, prevented double bookings, and improved customer experience with direct service and structured CRM data capture.',
+      details: [
+        'Natural language appointment booking and management',
+        'Knowledge base integration for instant answers',
+        'Automatic case detail extraction',
+        'CRM synchronization',
+        'Multi-channel support (website, messaging platforms)',
+        'Conversation context retention',
+      ],
+      videoUrl: 'https://youtu.be/_sY0JgB3S54',
+      featured: true,
+    },
     {
       id: 'lead-qualification',
       title: 'Lead Qualification Voice System',
@@ -74,53 +116,125 @@ function ExampleAutomationsPage() {
     },
   ];
 
+  const featuredDemos = demoSystems.filter((demo) => demo.featured);
+  const standardDemos = demoSystems.filter((demo) => !demo.featured);
+
   return (
     <div className="w-full">
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <AnimatedSection className="max-w-3xl mx-auto text-center mb-8">
           <h1 className="text-4xl sm:text-5xl font-bold mb-6">Demonstration Systems</h1>
-          <div className="bg-[#161B22] border border-[#232A35] p-4 rounded-lg">
-            <p className="text-[#9AA4B2]">
+          <div className="bg-[#161B22] border border-[#232A35] p-6 rounded">
+            <p className="text-[#9AA4B2] mb-3">
               The following are example systems created to demonstrate how AI automation can be applied to real
               business workflows.
+            </p>
+            <p className="text-[#E6E8EB] font-medium">
+              We don't ask you to believe us. We show you working systems.
             </p>
           </div>
         </AnimatedSection>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
-          {demoSystems.map((demo, index) => (
-            <AnimatedSection key={demo.id} variant="fadeUp" delay={index * 50}>
-              <FloatingCard>
-                <div className="bg-[#161B22] border border-[#232A35] p-6 rounded-lg card-glow">
-              <div className="inline-block px-3 py-1 bg-[#4F7DF3]/10 text-[#4F7DF3] text-xs font-medium rounded mb-4">
-                Demo System
+        {featuredDemos.length > 0 && (
+          <div className="mb-16">
+            <AnimatedSection className="text-center mb-8">
+              <div className="inline-block px-4 py-2 bg-[#4F7DF3]/10 border border-[#4F7DF3]/30 rounded mb-4">
+                <span className="text-[#4F7DF3] font-medium">Featured Demo Systems</span>
               </div>
-              <h3 className="text-xl font-semibold mb-4 text-[#E6E8EB]">{demo.title}</h3>
-              <div className="space-y-3 mb-6">
-                <div>
-                  <span className="text-sm text-[#9AA4B2] font-medium">Problem:</span>
-                  <p className="text-[#E6E8EB] mt-1">{demo.problem}</p>
-                </div>
-                <div>
-                  <span className="text-sm text-[#9AA4B2] font-medium">System Built:</span>
-                  <p className="text-[#E6E8EB] mt-1">{demo.systemBuilt}</p>
-                </div>
-                <div>
-                  <span className="text-sm text-[#9AA4B2] font-medium">Result:</span>
-                  <p className="text-[#E6E8EB] mt-1">{demo.result}</p>
-                </div>
-              </div>
-              <button
-                onClick={() => setSelectedDemo(demo)}
-                className="w-full px-4 py-2 bg-[#4F7DF3] text-white font-medium rounded hover:bg-[#3D6AE0] transition-colors"
-              >
-                View Details
-              </button>
-                </div>
-              </FloatingCard>
             </AnimatedSection>
-          ))}
-        </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
+              {featuredDemos.map((demo, index) => (
+                <AnimatedSection key={demo.id} variant="fadeUp" delay={index * 50}>
+                  <FloatingCard>
+                    <div className="bg-[#161B22] border-2 border-[#4F7DF3]/30 p-6 rounded card-glow h-full">
+                      <div className="inline-block px-3 py-1 bg-[#4F7DF3]/10 text-[#4F7DF3] text-xs font-medium rounded mb-4">
+                        Featured Demo System
+                      </div>
+                      <h3 className="text-xl font-semibold mb-4 text-[#E6E8EB]">{demo.title}</h3>
+
+                      {demo.videoUrl && (
+                        <a
+                          href={demo.videoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center space-x-2 text-[#4F7DF3] hover:text-[#3D6AE0] mb-6 transition-all duration-300 group"
+                        >
+                          <Play size={20} className="group-hover:scale-110 transition-transform" />
+                          <span className="font-medium">Watch Demo Video</span>
+                        </a>
+                      )}
+
+                      <div className="space-y-4 mb-6">
+                        <div>
+                          <span className="text-sm text-[#9AA4B2] font-medium">Problem:</span>
+                          <p className="text-[#E6E8EB] mt-1 text-sm">{demo.problem}</p>
+                        </div>
+                        <div>
+                          <span className="text-sm text-[#9AA4B2] font-medium">System Built:</span>
+                          <p className="text-[#E6E8EB] mt-1 text-sm">{demo.systemBuilt}</p>
+                        </div>
+                        <div>
+                          <span className="text-sm text-[#9AA4B2] font-medium">Result:</span>
+                          <p className="text-[#E6E8EB] mt-1 text-sm">{demo.result}</p>
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => setSelectedDemo(demo)}
+                        className="w-full px-4 py-2 bg-[#4F7DF3] text-white font-medium rounded hover:bg-[#3D6AE0] transition-colors"
+                      >
+                        View Full Details
+                      </button>
+                    </div>
+                  </FloatingCard>
+                </AnimatedSection>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {standardDemos.length > 0 && (
+          <div>
+            <AnimatedSection className="text-center mb-8">
+              <h2 className="text-2xl font-bold text-[#E6E8EB]">Additional Example Systems</h2>
+            </AnimatedSection>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {standardDemos.map((demo, index) => (
+                <AnimatedSection key={demo.id} variant="fadeUp" delay={index * 50}>
+                  <FloatingCard>
+                    <div className="bg-[#161B22] border border-[#232A35] p-6 rounded card-glow h-full">
+                      <div className="inline-block px-3 py-1 bg-[#4F7DF3]/10 text-[#4F7DF3] text-xs font-medium rounded mb-4">
+                        Demo System
+                      </div>
+                      <h3 className="text-xl font-semibold mb-4 text-[#E6E8EB]">{demo.title}</h3>
+                      <div className="space-y-3 mb-6">
+                        <div>
+                          <span className="text-sm text-[#9AA4B2] font-medium">Problem:</span>
+                          <p className="text-[#E6E8EB] mt-1">{demo.problem}</p>
+                        </div>
+                        <div>
+                          <span className="text-sm text-[#9AA4B2] font-medium">System Built:</span>
+                          <p className="text-[#E6E8EB] mt-1">{demo.systemBuilt}</p>
+                        </div>
+                        <div>
+                          <span className="text-sm text-[#9AA4B2] font-medium">Result:</span>
+                          <p className="text-[#E6E8EB] mt-1">{demo.result}</p>
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => setSelectedDemo(demo)}
+                        className="w-full px-4 py-2 bg-[#4F7DF3] text-white font-medium rounded hover:bg-[#3D6AE0] transition-colors"
+                      >
+                        View Details
+                      </button>
+                    </div>
+                  </FloatingCard>
+                </AnimatedSection>
+              ))}
+            </div>
+          </div>
+        )}
 
         <AnimatedSection className="mt-16 text-center">
           <a href="#contact" className="btn-primary inline-block">
@@ -131,11 +245,11 @@ function ExampleAutomationsPage() {
 
       {selectedDemo && (
         <div className="fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50">
-          <div className="bg-[#161B22] max-w-2xl w-full rounded-lg p-8 max-h-[90vh] overflow-y-auto">
+          <div className="bg-[#161B22] max-w-2xl w-full rounded p-8 max-h-[90vh] overflow-y-auto border border-[#232A35]">
             <div className="flex items-start justify-between mb-6">
               <div>
                 <div className="inline-block px-3 py-1 bg-[#4F7DF3]/10 text-[#4F7DF3] text-xs font-medium rounded mb-2">
-                  Demo System
+                  {selectedDemo.featured ? 'Featured Demo System' : 'Demo System'}
                 </div>
                 <h2 className="text-2xl font-bold text-[#E6E8EB]">{selectedDemo.title}</h2>
               </div>
@@ -146,6 +260,18 @@ function ExampleAutomationsPage() {
                 <X size={24} />
               </button>
             </div>
+
+            {selectedDemo.videoUrl && (
+              <a
+                href={selectedDemo.videoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center space-x-2 text-[#4F7DF3] hover:text-[#3D6AE0] mb-6 transition-all duration-300 group"
+              >
+                <Play size={20} className="group-hover:scale-110 transition-transform" />
+                <span className="font-medium">Watch Demo Video</span>
+              </a>
+            )}
 
             <div className="space-y-6">
               <div>
@@ -168,7 +294,7 @@ function ExampleAutomationsPage() {
                 <ul className="space-y-2">
                   {selectedDemo.details.map((detail) => (
                     <li key={detail} className="flex items-start space-x-3">
-                      <div className="w-1.5 h-1.5 bg-[#4F7DF3] rounded-full mt-2"></div>
+                      <span className="text-[#4F7DF3] mt-1">—</span>
                       <span className="text-[#E6E8EB]">{detail}</span>
                     </li>
                   ))}

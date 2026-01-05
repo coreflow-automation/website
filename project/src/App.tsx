@@ -8,6 +8,8 @@ import ExampleAutomationsPage from './pages/ExampleAutomationsPage';
 import TeamPage from './pages/TeamPage';
 import PricingPage from './pages/PricingPage';
 import ContactPage from './pages/ContactPage';
+import PrivacyPage from './pages/PrivacyPage';
+import TermsPage from './pages/TermsPage';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -38,6 +40,10 @@ function App() {
         return <PricingPage />;
       case 'contact':
         return <ContactPage />;
+      case 'privacy':
+        return <PrivacyPage />;
+      case 'terms':
+        return <TermsPage />;
       default:
         return <HomePage />;
     }

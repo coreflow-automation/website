@@ -52,7 +52,7 @@ function Footer() {
                   href="#terms"
                   className="text-sm text-[#9AA4B2] hover:text-[#E6E8EB] transition-colors"
                 >
-                  Terms
+                  Terms of Service
                 </a>
               </li>
             </ul>

@@ -18,11 +18,12 @@ function Navigation({ currentPage }: NavigationProps) {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 bg-[#0E1116]/95 backdrop-blur-sm border-b border-[#232A35]">
+    <nav className="sticky top-0 z-50 bg-[#0E1116] backdrop-blur-md border-b-2 border-[#232A35]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <a href="#home" className="text-xl font-semibold text-[#E6E8EB]">
-            Coreflow Automation
+          <a href="#home" className="text-xl font-bold text-[#E6E8EB] tracking-tight relative group">
+            <span className="relative z-10">COREFLOW</span>
+            <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-[#4F7DF3] group-hover:w-full transition-all duration-300"></span>
           </a>
 
           <div className="hidden md:flex items-center space-x-8">
@@ -30,41 +31,39 @@ function Navigation({ currentPage }: NavigationProps) {
               <a
                 key={link.href}
                 href={link.href}
-                className={`text-sm font-medium relative group transition-colors duration-300 ${
+                className={`text-xs font-semibold tracking-wider uppercase relative transition-colors duration-200 ${
                   currentPage === link.href.slice(1)
                     ? 'text-[#4F7DF3]'
                     : 'text-[#9AA4B2] hover:text-[#E6E8EB]'
                 }`}
               >
                 {link.label}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#4F7DF3] group-hover:w-full transition-all duration-300"></span>
+                {currentPage === link.href.slice(1) && (
+                  <span className="absolute -bottom-2 left-0 right-0 h-[2px] bg-[#4F7DF3]"></span>
+                )}
               </a>
             ))}
-            <a
-              href="#contact"
-              className="px-4 py-2 bg-[#4F7DF3] text-white text-sm font-medium rounded relative overflow-hidden group hover:shadow-lg hover:shadow-[#4F7DF3]/30 transition-all duration-300"
-            >
-              <span className="relative z-10">Book a Demo</span>
-              <span className="absolute inset-0 bg-[#3D6AE0] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+            <a href="#contact" className="btn-primary px-6 py-2 text-xs font-semibold tracking-wider uppercase">
+              DEPLOY
             </a>
           </div>
 
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden text-[#E6E8EB]"
+            className="md:hidden text-[#E6E8EB] p-2 border border-[#232A35] hover:border-[#4F7DF3] transition-colors"
           >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
 
         {mobileMenuOpen && (
-          <div className="md:hidden py-4 space-y-4">
+          <div className="md:hidden py-4 space-y-4 border-t border-[#232A35]">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`block text-sm transition-colors ${
+                className={`block text-xs font-semibold tracking-wider uppercase transition-colors ${
                   currentPage === link.href.slice(1)
                     ? 'text-[#4F7DF3]'
                     : 'text-[#9AA4B2] hover:text-[#E6E8EB]'
@@ -76,9 +75,9 @@ function Navigation({ currentPage }: NavigationProps) {
             <a
               href="#contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="block w-full px-4 py-2 bg-[#4F7DF3] text-white text-sm font-medium rounded text-center hover:bg-[#3D6AE0] transition-colors"
+              className="block w-full btn-primary text-xs font-semibold tracking-wider uppercase text-center"
             >
-              Book a Demo
+              DEPLOY
             </a>
           </div>
         )}
